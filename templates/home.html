@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Tracker</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Welcome to Media Tracker!</h1>
 
-    <p>This is the home page.</p>
+{% block title %}
+Home
+{% endblock %}
 
-</body>
-</html>
+
+{% block content %}
+
+<h1>Welcome to Media Tracker!</h1>
+
+<p>
+    Track your favorite movies and TV shows.
+</p>
+
+{% endblock %}
