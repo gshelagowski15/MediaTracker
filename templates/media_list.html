@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+All Media
+{% endblock %}
+
+{% block content %}
+
+<h1>My Media</h1>
+
+{% if media %}
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Rating</th>
+            <th>Genres</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in media %}
+
+        <tr>
+            <td>{{ item["title"] }}</td>
+            <td>{{ item["type"] }}</td>
+            <td>{{ item["rating"] }}</td>
+            <td>{{ item["genres"] or "No genres" }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<p>You haven't added any movies or TV shows yet.</p>
+
+{% endif %}
+
+{% endblock %}

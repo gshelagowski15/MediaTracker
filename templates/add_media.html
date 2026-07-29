@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Media
+{% endblock %}
+
+{% block content %}
+
+<h1>Add Media</h1>
+
+<form method="POST">
+
+    <label for="title">Title</label><br>
+    <input
+        type="text"
+        id="title"
+        name="title"
+        required
+    >
+
+    <br><br>
+
+    <label for="type">Type</label><br>
+
+    <select
+        id="type"
+        name="type"
+    >
+        <option value="Movie">Movie</option>
+        <option value="TV">TV Show</option>
+    </select>
+
+    <br><br>
+
+    <label for="rating">Rating</label><br>
+
+    <input
+        type="number"
+        id="rating"
+        name="rating"
+        min="1"
+        max="10"
+        step="0.1"
+        required
+    >
+
+    <br><br>
+
+    <h3>Genres</h3>
+
+    <input type="checkbox" id="action" name="genres" value="Action">
+    <label for="action">Action</label><br>
+
+    <input type="checkbox" id="adventure" name="genres" value="Adventure">
+    <label for="adventure">Adventure</label><br>
+
+    <input type="checkbox" id="animation" name="genres" value="Animation">
+    <label for="animation">Animation</label><br>
+
+    <input type="checkbox" id="anime" name="genres" value="Anime">
+    <label for="anime">Anime</label><br>
+
+    <input type="checkbox" id="cartoon" name="genres" value="Cartoon">
+    <label for="cartoon">Cartoon</label><br>
+
+    <input type="checkbox" id="comedy" name="genres" value="Comedy">
+    <label for="comedy">Comedy</label><br>
+
+    <input type="checkbox" id="crime" name="genres" value="Crime">
+    <label for="crime">Crime</label><br>
+
+    <input type="checkbox" id="documentary" name="genres" value="Documentary">
+    <label for="documentary">Documentary</label><br>
+
+    <input type="checkbox" id="drama" name="genres" value="Drama">
+    <label for="drama">Drama</label><br>
+
+    <input type="checkbox" id="fantasy" name="genres" value="Fantasy">
+    <label for="fantasy">Fantasy</label><br>
+
+    <input type="checkbox" id="horror" name="genres" value="Horror">
+    <label for="horror">Horror</label><br>
+
+    <input type="checkbox" id="music/musical" name="genres" value="Music/Musical">
+    <label for="music/musical">Music/Musical</label><br>
+
+    <input type="checkbox" id="mystery" name="genres" value="Mystery">
+    <label for="mystery">Mystery</label><br>
+
+    <input type="checkbox" id="romance" name="genres" value="Romance">
+    <label for="romance">Romance</label><br>
+
+    <input type="checkbox" id="romantic comedy" name="genres" value="Romantic Comedy">
+    <label for="romantic comedy">Romantic Comedy</label><br>
+
+    <input type="checkbox" id="sci-fi" name="genres" value="Sci-Fi">
+    <label for="sci-fi">Sci-Fi</label><br>
+
+    <input type="checkbox" id="sports" name="genres" value="Sports">
+    <label for="sports">Sports</label><br>
+
+    <input type="checkbox" id="thriller" name="genres" value="Thriller">
+    <label for="thriller">Thriller</label><br>
+
+    <br>
+
+    <button type="submit">
+        Add Media
+    </button>
+
+</form>
+
+{% endblock %}
