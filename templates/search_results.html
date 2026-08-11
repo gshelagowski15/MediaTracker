@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block content %}
+
+<h1>Search Results</h1>
+
+<p>
+    <strong>Title:</strong>
+    {% if title %}
+        {{ title }}
+    {% else %}
+        Any
+    {% endif %}
+</p>
+
+<p>
+    <strong>Genre:</strong>
+    {% if genre %}
+        {{ genre }}
+    {% else %}
+        Any
+    {% endif %}
+</p>
+
+<p>
+    <strong>Type:</strong>
+    {% if media_type %}
+        {{ media_type }}
+    {% else %}
+        Any
+    {% endif %}
+</p>
+
+<br>
+
+{% if media %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Rating</th>
+                <th>Genres</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in media %}
+
+                <tr>
+
+                    <td>
+                        <a href="{{ url_for('media_detail', media_id=item['id']) }}">
+                            {{ item["title"] }}
+                        </a>
+                    </td>
+
+                    <td>
+                        {{ item["type"] }}
+                    </td>
+
+                    <td>
+                        {{ item["rating"] }}/10
+                    </td>
+
+                    <td>
+                        {{ item["genres"] or "No genres" }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+{% else %}
+
+    <p>No media found matching your search.</p>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('search') }}">Search Again</a>
+
+{% endblock %}
