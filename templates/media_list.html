@@ -26,7 +26,11 @@ All Media
         {% for item in media %}
 
         <tr>
-            <td>{{ item["title"] }}</td>
+            <td>
+                <a href="{{ url_for('media_detail', media_id=item['id']) }}">
+                    {{ item["title"] }}
+                </a>
+            </td>
             <td>{{ item["type"] }}</td>
             <td>{{ item["rating"] }}</td>
             <td>{{ item["genres"] or "No genres" }}</td>
