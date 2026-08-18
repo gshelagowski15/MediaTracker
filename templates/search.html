@@ -1,71 +1,134 @@
+{# Makes this page use the shared layout and navigation from base.html #}
 {% extends "base.html" %}
 
+{# Sets the title that appears in the browser tab #}
 {% block title %}
 Search Media
 {% endblock %}
 
+{# Starts the main content for the Search page #}
 {% block content %}
 
-<h1>Search Media</h1>
+{# This card contains the entire search form #}
+<div class="search-card">
 
-<form method="POST" action="{{ url_for('search') }}">
+    {# This section contains the heading and description for the page #}
+    <div class="form-header">
 
-    <label for="title">Title</label><br>
+        {# Displays the page heading #}
+        <h1>Search Media</h1>
 
-    <input
-        type="text"
-        id="title"
-        name="title"
-        placeholder="Search by title..."
-    >
+        {# Gives the user a short description of what searching does #}
+        <p>
+            Find movies and TV shows in your collection.
+        </p>
 
-    <br><br>
+    </div>
 
+    {# This form sends the search information to the search route using POST #}
+    <form method="POST" action="{{ url_for('search') }}">
 
-    <label for="genre">Genre</label><br>
+        {# This group contains the title search input #}
+        <div class="form-group">
 
-    <select id="genre" name="genre">
+            {# Label for the title input #}
+            <label for="title">
+                Title
+            </label>
 
-        <option value="">All Genres</option>
+            {# This lets the user search for media by entering part or all of a title #}
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Search by title..."
+            >
 
-        <option value="Action">Action</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Animation">Animation</option>
-        <option value="Anime">Anime</option>
-        <option value="Cartoon">Cartoon</option>
-        <option value="Comedy">Comedy</option>
-        <option value="Crime">Crime</option>
-        <option value="Documentary">Documentary</option>
-        <option value="Drama">Drama</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Horror">Horror</option>
-        <option value="Music/Musical">Music/Musical</option>
-        <option value="Mystery">Mystery</option>
-        <option value="Romance">Romance</option>
-        <option value="Romantic Comedy">Romantic Comedy</option>
-        <option value="Sci-Fi">Sci-Fi</option>
-        <option value="Sports">Sports</option>
-        <option value="Thriller">Thriller</option>
+        </div>
 
-    </select>
+        {# This groups the genre and type filters together #}
+        <div class="search-filters">
 
-    <br><br>
+            {# This group contains the genre filter #}
+            <div class="form-group">
 
+                {# Label for the genre input #}
+                <label for="genre">
+                    Genre
+                </label>
 
-    <label for="type">Type</label><br>
+                {# This dropdown lets the user choose a genre to search for #}
+                <select id="genre" name="genre">
 
-    <select id="type" name="type">
+                    {# This option allows the user to search without choosing a genre #}
+                    <option value="">All Genres</option>
 
-        <option value="">All</option>
-        <option value="Movie">Movies</option>
-        <option value="TV">TV Shows</option>
+                    {# These are all of the genre options in the dropdown #}
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Anime">Anime</option>
+                    <option value="Cartoon">Cartoon</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Documentary">Documentary</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Music/Musical">Music/Musical</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Romantic Comedy">Romantic Comedy</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Thriller">Thriller</option>
 
-    </select>
+                </select>
 
-    <br><br>
+            </div>
 
-    <button type="submit">Search</button>
+            {# This group contains the media type filter #}
+            <div class="form-group">
 
-</form>
+                {# Label for the type dropdown #}
+                <label for="type">
+                    Type
+                </label>
 
+                {# This dropdown lets the user search for movies, TV shows, or both #}
+                <select id="type" name="type">
+
+                    <option value="">All</option>
+                    <option value="Movie">Movies</option>
+                    <option value="TV">TV Shows</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        {# This section contains the buttons for submitting or clearing the search #}
+        <div class="form-actions">
+
+            {# This button submits the search form #}
+            <button type="submit" class="button">
+                Search
+            </button>
+
+            {# This link reloads the search page without any search filters #}
+            <a
+                href="{{ url_for('search') }}"
+                class="cancel-button"
+            >
+                Clear
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{# Ends the main content block #}
 {% endblock %}

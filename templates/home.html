@@ -1,17 +1,180 @@
+{# Makes home.html use the layout and navigation from base.html #}
 {% extends "base.html" %}
 
-
+{# Sets the title that appears in the browser tab #}
 {% block title %}
 Home
 {% endblock %}
 
-
+{# Starts the main content section of the page #}
 {% block content %}
 
-<h1>Welcome to Media Tracker!</h1>
+{# The main header section at the top of the home page #}
+<div class="home-header">
 
-<p>
-    Track your favorite movies and TV shows.
-</p>
+    {# The main heading for the website #}
+    <h1>Your Media Tracker</h1>
 
+    {# Gives the user a short description of what the website does #}
+    <p>
+        Keep track of the movies and TV shows you've watched.
+    </p>
+
+    {# Contains the buttons for the main actions the user can take #}
+    <div class="home-actions">
+
+        {# This button takes the user to the page where they can add media #}
+        <a href="/add" class="button">
+            Add Media
+        </a>
+
+        {# This button takes the user to the search page #}
+        <a href="/search" class="button secondary-button">
+            Search Media
+        </a>
+
+    </div>
+
+</div>
+
+{# This section displays some basic stats about the user's media #}
+<div class="stats">
+
+    {# This card displays the total number of media items #}
+    <div class="stat-card">
+
+        {# total_media is passed into the template from the home route in app.py #}
+        <h2>{{ total_media }}</h2>
+
+        {# Tells the user what the number above represents #}
+        <p>Total Media</p>
+
+    </div>
+
+
+    {# This card displays the average rating of all the user's media #}
+    <div class="stat-card">
+
+        <h2>
+
+            {# Checks if there is an average rating to display #}
+            {% if average_rating %}
+
+                {# Displays the average rating rounded to one decimal place #}
+                {{ "%.1f"|format(average_rating) }}
+            
+            {# If there are no ratings then display N/A instead #}
+            {% else %}
+                N/A
+            {% endif %}
+
+        </h2>
+
+        {# Tells the user what the number above represents #}
+        <p>Average Rating</p>
+
+    </div>
+
+</div>
+
+{# This section displays the highest rated media in the user's collection #}
+<section class="home-section">
+
+    {# Heading for the highest rated media section #}
+    <h2>Highest Rated</h2>
+
+    {# Checks if there are any highest rated media items to display #}
+    {% if highest_rated %}
+
+        {# Use the same card grid layout used on the other pages #}
+        <div class="media-grid">
+
+            {# Loops through each media item in the highest_rated list #}
+            {% for item in highest_rated %}
+
+                {# Makes the entire media card clickable and link it to the detail page #}
+                <a
+                    href="{{ url_for('media_detail', media_id=item['id']) }}"
+                    class="media-card"
+                >
+
+                    {# Contains the title and type of the media #}
+                    <div class="media-card-header">
+
+                        {# Displays the title of the movie or TV show #}
+                        <h2>
+                            {{ item["title"] }}
+                        </h2>
+
+                        {# Displays whether the media is a movie or TV show #}
+                        <span class="media-type">
+                            {{ item["type"] }}
+                        </span>
+
+                    </div>
+
+                    {# This section displays the rating for the media item #}
+                    <div class="media-rating">
+
+                        {# Displays a star next to the rating #}
+                        <span class="rating-star">★</span>
+
+                        {# Displays the rating out of 10 #}
+                        <span>
+                            {{ item["rating"] }}/10
+                        </span>
+
+                    </div>
+
+                    {# This section displays all of the genres for the media item #}
+                    <div class="media-genres">
+
+                        {# Checks if the media item has any genres #}
+                        {% if item["genres"] %}
+
+                            {# Splits the genres into individual values and loops through them #}
+                            {% for genre in item["genres"].split(", ") %}
+
+                                {# Displays each genre inside its own bubble #}
+                                <span class="genre-tag">
+                                    {{ genre }}
+                                </span>
+
+                            {% endfor %}
+
+                        {# If there are no genres then display a message instead #}
+                        {% else %}
+
+                            <span class="no-genres">
+                                No genres
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </a>
+
+            {# Ends the loop through the highest rated media #}
+            {% endfor %}
+
+        </div>
+
+    {# If there is no media in the database then show a message instead #}
+    {% else %}
+
+        <p>
+            You haven't added any media yet.
+        </p>
+
+        {# Gives the user a button to add their first media item #}
+        <a href="/add" class="button">
+            Add Your First Media
+        </a>
+
+    {% endif %}
+
+</section>
+
+{# Ends the main content block from base.html #}
 {% endblock %}

@@ -1,0 +1,831 @@
+/* Makes the width and height of elements include their padding and border */
+* {
+    box-sizing: border-box;
+}
+
+
+/* General */
+
+/* Sets the overall appearance of the website */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fb;
+    color: #222;
+}
+
+/* Controls the width, spacing, and position of the main page content */
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Adds space below page headings */
+h1 {
+    margin-bottom: 25px;
+}
+
+/* Sets the default color for links on the website */
+a {
+    color: #5b4bdb;
+}
+
+/* Sets the basic appearance of buttons */
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Slightly fades buttons when the user hovers over them */
+button:hover {
+    opacity: 0.85;
+}
+
+/* Sets the basic appearance of text inputs and dropdown menus */
+input,
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+
+/* Navigation */
+
+/* Sets the background color of the navigation bar */
+nav {
+    background-color: #17172b;
+}
+
+/* Controls the width, spacing, and layout of the navigation bar contents */
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styles the Media Tracker logo in the navigation bar */
+.nav-logo {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Places the navigation links next to each other */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Styles the links in the navigation bar */
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Changes the color of navigation links when the user hovers over them */
+.nav-links a:hover {
+    color: #c9c2ff;
+}
+
+/* Gives the Add Media link a button like appearance */
+.nav-add {
+    padding: 8px 14px;
+    border-radius: 6px;
+    background-color: #6c5ce7;
+    color: white !important;
+}
+
+/* Changes the Add Media button's color when the user hovers over it */
+.nav-add:hover {
+    background-color: #5848d1;
+    opacity: 1;
+}
+
+
+/* Buttons */
+
+/* Styles the buttons used throughout the website */
+.button {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #6c5ce7;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    margin: 5px;
+}
+
+/* Changes the main button's color when the user hovers over it */
+.button:hover {
+    background-color: #5848d1;
+    opacity: 1;
+    text-decoration: none;
+}
+
+/* Gives secondary buttons a different color from the main buttons */
+.secondary-button {
+    background-color: #555b73;
+}
+
+/* Changes the secondary button's color when the user hovers over it */
+.secondary-button:hover {
+    background-color: #454a5e;
+}
+
+
+/* Home Page */
+
+/* Centers the main heading and buttons on the home page */
+.home-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Makes the main home page heading larger */
+.home-header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+/* Styles the description underneath the home page heading */
+.home-header p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Adds space above the home page buttons */
+.home-actions {
+    margin-top: 25px;
+}
+
+/* Places the stat cards next to each other */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+/* Styles each stat card on the home page */
+.stat-card {
+    background-color: white;
+    padding: 25px;
+    width: 200px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Makes the stat number larger and gives it the main site color */
+.stat-card h2 {
+    font-size: 32px;
+    margin: 0;
+    color: #6c5ce7;
+}
+
+/* Styles the text underneath each statistic */
+.stat-card p {
+    margin-bottom: 0;
+    color: #666;
+}
+
+/* Adds space above the highest rated section */
+.home-section {
+    margin-top: 30px;
+}
+
+
+/* Media Cards */
+
+/* Creates a responsive grid for media cards */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Creates the main card design used for media throughout the website */
+.media-card {
+    display: block;
+
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+
+    color: inherit;
+    text-decoration: none;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+/* Slightly raises the card and makes its shadow larger when hovered over */
+.media-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+/* Puts the title and media type at the top of the card */
+.media-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Styles the title inside a media card */
+.media-card-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #222;
+}
+
+/* Styles the movie or TV show type shown on the card */
+.media-type {
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Makes the rating on a media card stand out */
+.media-rating {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Styles the star shown next to media ratings */
+.rating-star {
+    color: #f4b400;
+    font-size: 22px;
+}
+
+/* Places the genre tags next to each other and allows them to wrap */
+.media-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Creates the bubble appearance used for genre tags */
+.genre-tag {
+    background-color: #eeeaff;
+    color: #5545c7;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+/* Styles the message shown when media does not have any genres */
+.no-genres {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* My Media */
+
+/* Controls the layout of the My Media page heading */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Styles the number of media items shown under the My Media heading */
+.page-header p {
+    color: #666;
+}
+
+/* Places the sorting label and dropdown next to each other */
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+/* Gives the sorting dropdown a minimum width */
+.sort-container select {
+    min-width: 180px;
+}
+
+
+/* Empty States */
+
+/* Styles the message shown when there is no media to display */
+.empty-state {
+    text-align: center;
+    background-color: white;
+    padding: 50px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Detail Page */
+
+/* Creates the main card that contains the media details */
+.detail-card {
+    background-color: white;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    max-width: 800px;
+    margin: 0 auto 25px auto;
+}
+
+/* Places the title information and rating next to each other */
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Removes the extra margin from the detail page heading */
+.detail-header h1 {
+    margin: 0;
+}
+
+/* Styles the media type shown underneath the title */
+.detail-type {
+    color: #666;
+    font-size: 17px;
+    margin-top: 8px;
+}
+
+/* Styles the rating shown on the detail page */
+.detail-rating {
+    white-space: nowrap;
+    font-size: 24px;
+}
+
+/* Makes the rating number bold */
+.rating-number {
+    font-weight: bold;
+}
+
+/* Styles the "/ 10" part of the rating */
+.rating-out-of {
+    color: #777;
+    font-size: 18px;
+}
+
+/* Adds spacing around the genres section */
+.detail-section {
+    padding: 25px 0;
+}
+
+/* Controls the heading inside the detail section */
+.detail-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Places the genre tags next to each other and allows them to wrap */
+.genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Controls the layout of the Edit and Delete buttons */
+.detail-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+/* Removes extra margin from the delete form */
+.detail-actions form {
+    margin: 0;
+}
+
+/* Gives the Delete button a red color so it stands out as a destructive action */
+.delete-button {
+    background-color: #b22222;
+    color: white;
+}
+
+/* Makes the Delete button darker when the user hovers over it */
+.delete-button:hover {
+    background-color: #8b1a1a;
+    opacity: 1;
+}
+
+/* Controls the width and position of the Back link */
+.back-link {
+    display: block;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+/* Forms */
+
+/* Creates the card that contains the Add and Edit forms */
+.form-card {
+    max-width: 750px;
+    margin: 0 auto;
+
+    background-color: white;
+    padding: 35px;
+
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Adds space below the heading section of a form */
+.form-header {
+    margin-bottom: 30px;
+}
+
+/* Controls the spacing below the form heading */
+.form-header h1 {
+    margin-bottom: 8px;
+}
+
+/* Styles the description underneath the form heading */
+.form-header p {
+    color: #666;
+    margin-top: 0;
+}
+
+/* Adds spacing between each group of form fields */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* Makes the labels above form fields appear on their own line and bold */
+.form-group > label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Makes the text fields, number fields, and dropdowns fill the available width */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Styles the smaller help text underneath form fields */
+.form-group small {
+    display: block;
+    margin-top: 6px;
+    color: #666;
+}
+
+/* Adds a small amount of spacing below the Genres heading */
+.form-group h3 {
+    margin-bottom: 5px;
+}
+
+/* Styles the help text underneath the Genres heading */
+.form-help {
+    color: #666;
+    margin-top: 0;
+}
+
+/* Creates a grid for the genre checkboxes */
+.genre-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Creates the card like appearance for each genre checkbox */
+.genre-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px;
+
+    background-color: #f4f4f4;
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+/* Changes the background color of a genre checkbox when hovered over */
+.genre-checkbox:hover {
+    background-color: #e8e8e8;
+}
+
+/* Changes the cursor when hovering over a checkbox */
+.genre-checkbox input {
+    cursor: pointer;
+}
+
+/* Places the form buttons next to each other */
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+/* Styles links that act as cancel buttons */
+.cancel-button {
+    display: inline-block;
+    padding: 10px 18px;
+
+    color: #222;
+    text-decoration: none;
+}
+
+/* Underlines the cancel link when the user hovers over it */
+.cancel-button:hover {
+    text-decoration: underline;
+}
+
+
+/* Search */
+
+/* Creates the card that contains the search form */
+.search-card {
+    max-width: 750px;
+    margin: 0 auto;
+
+    background-color: white;
+    padding: 35px;
+
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Places the genre and type search filters next to each other */
+.search-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Gives the search form groups slightly less spacing than the other forms */
+.search-card .form-group {
+    margin-bottom: 20px;
+}
+
+/* Makes the search title input and dropdowns fill the available width */
+.search-card input[type="text"],
+.search-card select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+
+/* Search Results */
+
+/* Controls the layout of the Search Results heading and Search Again button */
+.results-header {
+    margin-bottom: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+}
+
+/* Controls the spacing below the Search Results heading */
+.results-header h1 {
+    margin-bottom: 5px;
+}
+
+/* Styles the description underneath the Search Results heading */
+.results-header p {
+    margin-top: 0;
+    color: #666;
+}
+
+/* Creates a grid for displaying the search filters used */
+.search-summary {
+    margin-bottom: 25px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+/* Creates the card used for each search filter summary */
+.search-filter {
+    background-color: white;
+    padding: 15px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* Styles the name of each search filter */
+.search-filter strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #666;
+    font-size: 14px;
+}
+
+/* Styles the number of results found by the search */
+.results-count {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* Styles the message shown when a search does not find any media */
+.no-results {
+    max-width: 700px;
+    margin: 40px auto;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background-color: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Styles the description inside the no results message */
+.no-results p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+
+/* Responsive Design */
+
+/* These rules apply when the screen is 700 pixels wide or smaller */
+@media (max-width: 700px) {
+
+    /* Reduces the space above the main content on smaller screens */
+    main {
+        margin-top: 25px;
+    }
+
+    /* Stacks the logo and navigation links vertically on smaller screens */
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Allows the navigation links to wrap onto multiple lines if needed */
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    /* Makes the home page heading smaller on smaller screens */
+    .home-header h1 {
+        font-size: 30px;
+    }
+
+    /* Stacks the stat cards vertically on smaller screens */
+    .stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Makes the stat cards wider on smaller screens while limiting their max width */
+    .stat-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* Changes the media grid to one column on smaller screens */
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stacks the search filters vertically on smaller screens */
+    .search-filters {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stacks the search summary cards vertically on smaller screens */
+    .search-summary {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stacks the Search Results heading and button vertically on smaller screens */
+    .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Stacks the title and media type inside a card on smaller screens */
+    .media-card-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Allows the media type to wrap onto another line if needed */
+    .media-type {
+        white-space: normal;
+    }
+
+    /* Stacks the title information and rating on the detail page */
+    .detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Slightly reduces the size of the detail page rating on smaller screens */
+    .detail-rating {
+        font-size: 22px;
+    }
+
+    /* Changes the genre checkbox grid to two columns on smaller screens */
+    .genre-checkboxes {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Reduces the padding inside the larger cards on smaller screens */
+    .form-card,
+    .search-card,
+    .detail-card {
+        padding: 25px;
+    }
+
+    /* Stacks the My Media heading information vertically on smaller screens */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Stacks the sorting label and dropdown vertically on smaller screens */
+    .sort-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Makes the sorting dropdown fill the available width */
+    .sort-container select {
+        width: 100%;
+    }
+    
+}
+
+/* These rules apply when the screen is 450 pixels wide or smaller */
+@media (max-width: 450px) {
+
+    /* Reduces the horizontal padding around the main content on very small screens */
+    main {
+        padding: 0 15px;
+    }
+
+    /* Reduces the padding inside the navigation bar on very small screens */
+    .nav-container {
+        padding: 12px 15px;
+    }
+
+    /* Reduces the space between navigation links on very small screens */
+    .nav-links {
+        gap: 10px;
+    }
+
+    /* Changes the genre checkbox grid to one column on very small screens */
+    .genre-checkboxes {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduces the padding inside the larger cards on very small screens */
+    .form-card,
+    .search-card,
+    .detail-card {
+        padding: 20px;
+    }
+
+}

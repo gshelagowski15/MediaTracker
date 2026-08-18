@@ -1,133 +1,295 @@
+{# Makes this page use the shared layout and navigation from base.html #}
 {% extends "base.html" %}
 
+{# Sets the title that appears in the browser tab #}
 {% block title %}
 Edit {{ media["title"] }}
 {% endblock %}
 
+{# Starts the main content for the Edit Media page #}
 {% block content %}
 
-<h1>Edit Media</h1>
+{# Creates the card that contains the entire edit media form #}
+<div class="form-card">
 
-<form method="POST">
+    {# Creates the heading and description for the form #}
+    <div class="form-header">
 
-    <label for="title">Title</label><br>
+        {# Displays the page heading #}
+        <h1>Edit Media</h1>
 
-    <input
-        type="text"
-        id="title"
-        name="title"
-        value="{{ media['title'] }}"
-        required
-    >
+        {# Tells the user what media they are editing #}
+        <p>
+            Update the information for {{ media["title"] }}.
+        </p>
 
-    <br><br>
+    </div>
 
+    {# Creates the form where the user can edit the media information #}
+    <form method="POST">
 
-    <label for="type">Type</label><br>
+        {# This group contains the input for the media title #}
+        <div class="form-group">
 
-    <select id="type" name="type">
+            {# Label for the title input #}
+            <label for="title">
+                Title
+            </label>
 
-        <option
-            value="Movie"
-            {% if media["type"] == "Movie" %}selected{% endif %}
-        >
-            Movie
-        </option>
+            {# Text box filled with the current title 
+                where the user can enter a new movie or TV show title #}
+            <input
+                type="text"
+                id="title"
+                name="title"
+                value="{{ media['title'] }}"
+                required
+            >
 
-        <option
-            value="TV"
-            {% if media["type"] == "TV" %}selected{% endif %}
-        >
-            TV Show
-        </option>
+        </div>
 
-    </select>
+        {# This group lets the user choose whether the media is a movie or TV show #}
+        <div class="form-group">
 
-    <br><br>
+            {# Label for the type dropdown #}
+            <label for="type">
+                Type
+            </label>
 
+            {# Dropdown menu for choosing the type of media #}
+            <select id="type" name="type">
 
-    <label for="rating">Rating</label><br>
+                {# Creates the Movie option and selects it if the current type is Movie #}
+                <option
+                    value="Movie"
+                    {% if media["type"] == "Movie" %}selected{% endif %}
+                >
+                    Movie
+                </option>
 
-    <input
-        type="number"
-        id="rating"
-        name="rating"
-        min="1"
-        max="10"
-        step="0.1"
-        value="{{ media['rating'] }}"
-        required
-    >
+                {# Creates the TV Show option and selects it if the current type is TV #}
+                <option
+                    value="TV"
+                    {% if media["type"] == "TV" %}selected{% endif %}
+                >
+                    TV Show
+                </option>
 
-    <br><br>
+            </select>
 
+        </div>
 
-    <h3>Genres</h3>
+        {# This group contains the rating input #}
+        <div class="form-group">
 
-    <input type="checkbox" id="action" name="genres" value="Action" {% if "Action" in selected_genres %}checked{% endif %}>
-    <label for="action">Action</label><br>
+            {# Label for the rating input #}
+            <label for="rating">
+                Rating
+            </label>
 
-    <input type="checkbox" id="adventure" name="genres" value="Adventure" {% if "Adventure" in selected_genres %}checked{% endif %}>
-    <label for="adventure">Adventure</label><br>
+            {# Creates the rating input that allows ratings between 1 and 10 
+                using decimal values and fills it with the current rating #}
+            <input
+                type="number"
+                id="rating"
+                name="rating"
+                min="1"
+                max="10"
+                step="0.1"
+                value="{{ media['rating'] }}"
+                required
+            >
 
-    <input type="checkbox" id="animation" name="genres" value="Animation" {% if "Animation" in selected_genres %}checked{% endif %}>
-    <label for="animation">Animation</label><br>
+            {# Gives the user some instructions for entering a rating #}
+            <small>
+                Enter a rating from 1 to 10.
+            </small>
 
-    <input type="checkbox" id="anime" name="genres" value="Anime" {% if "Anime" in selected_genres %}checked{% endif %}>
-    <label for="anime">Anime</label><br>
+        </div>
 
-    <input type="checkbox" id="cartoon" name="genres" value="Cartoon" {% if "Cartoon" in selected_genres %}checked{% endif %}>
-    <label for="cartoon">Cartoon</label><br>
+        {# This group contains all of the available genre options #}
+        <div class="form-group">
 
-    <input type="checkbox" id="comedy" name="genres" value="Comedy" {% if "Comedy" in selected_genres %}checked{% endif %}>
-    <label for="comedy">Comedy</label><br>
+            {# Heading for the genre section #}
+            <h3>Genres</h3>
 
-    <input type="checkbox" id="crime" name="genres" value="Crime" {% if "Crime" in selected_genres %}checked{% endif %}>
-    <label for="crime">Crime</label><br>
+            {# Tells the user that they can choose more than one genre #}
+            <p class="form-help">
+                Select all genres that apply.
+            </p>
 
-    <input type="checkbox" id="documentary" name="genres" value="Documentary" {% if "Documentary" in selected_genres %}checked{% endif %}>
-    <label for="documentary">Documentary</label><br>
+            {# This container holds all of the genre checkboxes #}
+            <div class="genre-checkboxes">
 
-    <input type="checkbox" id="drama" name="genres" value="Drama" {% if "Drama" in selected_genres %}checked{% endif %}>
-    <label for="drama">Drama</label><br>
+                {# Checkbox for the Action genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Action"
+                    {% if "Action" in selected_genres %}checked{% endif %}>
+                    <span>Action</span>
+                </label>
 
-    <input type="checkbox" id="fantasy" name="genres" value="Fantasy" {% if "Fantasy" in selected_genres %}checked{% endif %}>
-    <label for="fantasy">Fantasy</label><br>
+                {# Checkbox for the Adventure genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Adventure"
+                    {% if "Adventure" in selected_genres %}checked{% endif %}>
+                    <span>Adventure</span>
+                </label>
 
-    <input type="checkbox" id="horror" name="genres" value="Horror" {% if "Horror" in selected_genres %}checked{% endif %}>
-    <label for="horror">Horror</label><br>
+                {# Checkbox for the Animation genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Animation"
+                    {% if "Animation" in selected_genres %}checked{% endif %}>
+                    <span>Animation</span>
+                </label>
 
-    <input type="checkbox" id="music/musical" name="genres" value="Music/Musical" {% if "Music/Musical" in selected_genres %}checked{% endif %}>
-    <label for="music/musical">Music/Musical</label><br>
+                {# Checkbox for the Anime genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Anime"
+                    {% if "Anime" in selected_genres %}checked{% endif %}>
+                    <span>Anime</span>
+                </label>
 
-    <input type="checkbox" id="mystery" name="genres" value="Mystery" {% if "Mystery" in selected_genres %}checked{% endif %}>
-    <label for="mystery">Mystery</label><br>
+                {# Checkbox for the Cartoon genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Cartoon"
+                    {% if "Cartoon" in selected_genres %}checked{% endif %}>
+                    <span>Cartoon</span>
+                </label>
 
-    <input type="checkbox" id="romance" name="genres" value="Romance" {% if "Romance" in selected_genres %}checked{% endif %}>
-    <label for="romance">Romance</label><br>
+                {# Checkbox for the Comedy genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Comedy"
+                    {% if "Comedy" in selected_genres %}checked{% endif %}>
+                    <span>Comedy</span>
+                </label>
 
-    <input type="checkbox" id="romantic comedy" name="genres" value="Romantic Comedy" {% if "Romantic Comedy" in selected_genres %}checked{% endif %}>
-    <label for="romantic comedy">Romantic Comedy</label><br>
+                {# Checkbox for the Crime genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Crime"
+                    {% if "Crime" in selected_genres %}checked{% endif %}>
+                    <span>Crime</span>
+                </label>
 
-    <input type="checkbox" id="sci-fi" name="genres" value="Sci-Fi" {% if "Sci-Fi" in selected_genres %}checked{% endif %}>
-    <label for="sci-fi">Sci-Fi</label><br>
+                {# Checkbox for the Documentary genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Documentary"
+                    {% if "Documentary" in selected_genres %}checked{% endif %}>
+                    <span>Documentary</span>
+                </label>
 
-    <input type="checkbox" id="sports" name="genres" value="Sports" {% if "Sports" in selected_genres %}checked{% endif %}>
-    <label for="sports">Sports</label><br>
+                {# Checkbox for the Drama genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Drama"
+                    {% if "Drama" in selected_genres %}checked{% endif %}>
+                    <span>Drama</span>
+                </label>
 
-    <input type="checkbox" id="thriller" name="genres" value="Thriller" {% if "Thriller" in selected_genres %}checked{% endif %}>
-    <label for="thriller">Thriller</label><br>
+                {# Checkbox for the Fantasy genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Fantasy"
+                    {% if "Fantasy" in selected_genres %}checked{% endif %}>
+                    <span>Fantasy</span>
+                </label>
 
-    <br>
+                {# Checkbox for the Horror genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Horror"
+                    {% if "Horror" in selected_genres %}checked{% endif %}>
+                    <span>Horror</span>
+                </label>
 
-    <button type="submit">Save Changes</button>
+                {# Checkbox for the Music/Musical genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Music/Musical"
+                    {% if "Music/Musical" in selected_genres %}checked{% endif %}>
+                    <span>Music/Musical</span>
+                </label>
 
-</form>
+                {# Checkbox for the Mystery genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Mystery"
+                    {% if "Mystery" in selected_genres %}checked{% endif %}>
+                    <span>Mystery</span>
+                </label>
 
-<br>
+                {# Checkbox for the Romance genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Romance"
+                    {% if "Romance" in selected_genres %}checked{% endif %}>
+                    <span>Romance</span>
+                </label>
 
-<a href="{{ url_for('media_detail', media_id=media['id']) }}">
-    Cancel
-</a>
+                {# Checkbox for the Romantic Comedy genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Romantic Comedy"
+                    {% if "Romantic Comedy" in selected_genres %}checked{% endif %}>
+                    <span>Romantic Comedy</span>
+                </label>
 
+                {# Checkbox for the Sci-Fi genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Sci-Fi"
+                    {% if "Sci-Fi" in selected_genres %}checked{% endif %}>
+                    <span>Sci-Fi</span>
+                </label>
+
+                {# Checkbox for the Sports genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Sports"
+                    {% if "Sports" in selected_genres %}checked{% endif %}>
+                    <span>Sports</span>
+                </label>
+
+                {# Checkbox for the Thriller genre #}
+                {# Checked if genre is already selected #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Thriller"
+                    {% if "Thriller" in selected_genres %}checked{% endif %}>
+                    <span>Thriller</span>
+                </label>
+
+            </div>
+
+        </div>
+
+        {# This section contains the buttons at the bottom of the form #}
+        <div class="form-actions">
+
+            {# Submits the updated media information #}
+            <button type="submit" class="button">
+                Save Changes
+            </button>
+
+            {# Cancels the edit and returns to the media detail page #}
+            <a
+                href="{{ url_for('media_detail', media_id=media['id']) }}"
+                class="cancel-button"
+            >
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{# Ends the main content section #}
 {% endblock %}

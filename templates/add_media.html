@@ -1,113 +1,252 @@
+{# Makes this page use the shared layout and navigation from base.html #}
 {% extends "base.html" %}
 
+{# Sets the title that appears in the browser tab #}
 {% block title %}
 Add Media
 {% endblock %}
 
+{# Starts the main content for the Add Media page #}
 {% block content %}
 
-<h1>Add Media</h1>
+{# Creates the card that contains the entire add media form #}
+<div class="form-card">
 
-<form method="POST">
+    {# This section contains the heading and description for the form #}
+    <div class="form-header">
 
-    <label for="title">Title</label><br>
-    <input
-        type="text"
-        id="title"
-        name="title"
-        required
-    >
+        {# Main heading for the page #}
+        <h1>Add Media</h1>
 
-    <br><br>
+        {# Briefly explains what the user can add #}
+        <p>
+            Add a movie or TV show to your collection.
+        </p>
 
-    <label for="type">Type</label><br>
+    </div>
 
-    <select
-        id="type"
-        name="type"
-    >
-        <option value="Movie">Movie</option>
-        <option value="TV">TV Show</option>
-    </select>
 
-    <br><br>
+    {# This form sends the information to the add_media route using POST #}
+    <form method="POST">
 
-    <label for="rating">Rating</label><br>
+        {# This group contains the input for the media title #}
+        <div class="form-group">
 
-    <input
-        type="number"
-        id="rating"
-        name="rating"
-        min="1"
-        max="10"
-        step="0.1"
-        required
-    >
+            {# Label for the title input #}
+            <label for="title">
+                Title
+            </label>
 
-    <br><br>
+            {# Text box where the user enters the movie or TV show title #}
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter a title"
+                required
+            >
 
-    <h3>Genres</h3>
+        </div>
 
-    <input type="checkbox" id="action" name="genres" value="Action">
-    <label for="action">Action</label><br>
+        {# This group lets the user choose whether the media is a movie or TV show #}
+        <div class="form-group">
 
-    <input type="checkbox" id="adventure" name="genres" value="Adventure">
-    <label for="adventure">Adventure</label><br>
+            {# Label for the type dropdown #}
+            <label for="type">
+                Type
+            </label>
 
-    <input type="checkbox" id="animation" name="genres" value="Animation">
-    <label for="animation">Animation</label><br>
+            {# Dropdown menu for choosing the type of media #}
+            <select
+                id="type"
+                name="type"
+            >
 
-    <input type="checkbox" id="anime" name="genres" value="Anime">
-    <label for="anime">Anime</label><br>
+                {# Option for adding a movie #}
+                <option value="Movie">
+                    Movie
+                </option>
 
-    <input type="checkbox" id="cartoon" name="genres" value="Cartoon">
-    <label for="cartoon">Cartoon</label><br>
+                {# Option for adding a TV show #}
+                <option value="TV">
+                    TV Show
+                </option>
 
-    <input type="checkbox" id="comedy" name="genres" value="Comedy">
-    <label for="comedy">Comedy</label><br>
+            </select>
 
-    <input type="checkbox" id="crime" name="genres" value="Crime">
-    <label for="crime">Crime</label><br>
+        </div>
 
-    <input type="checkbox" id="documentary" name="genres" value="Documentary">
-    <label for="documentary">Documentary</label><br>
+        {# This group contains the rating input #}
+        <div class="form-group">
 
-    <input type="checkbox" id="drama" name="genres" value="Drama">
-    <label for="drama">Drama</label><br>
+            {# Label for the rating input #}
+            <label for="rating">
+                Rating
+            </label>
 
-    <input type="checkbox" id="fantasy" name="genres" value="Fantasy">
-    <label for="fantasy">Fantasy</label><br>
+            {# Number input that allows ratings between 1 and 10 using decimal values #}
+            <input
+                type="number"
+                id="rating"
+                name="rating"
+                min="1"
+                max="10"
+                step="0.1"
+                placeholder="1.0 - 10.0"
+                required
+            >
 
-    <input type="checkbox" id="horror" name="genres" value="Horror">
-    <label for="horror">Horror</label><br>
+            {# Gives the user some instructions for entering a rating #}
+            <small>
+                Enter a rating from 1 to 10.
+            </small>
 
-    <input type="checkbox" id="music/musical" name="genres" value="Music/Musical">
-    <label for="music/musical">Music/Musical</label><br>
+        </div>
 
-    <input type="checkbox" id="mystery" name="genres" value="Mystery">
-    <label for="mystery">Mystery</label><br>
+        {# This group contains all of the available genre options #}
+        <div class="form-group">
 
-    <input type="checkbox" id="romance" name="genres" value="Romance">
-    <label for="romance">Romance</label><br>
+            {# Heading for the genre section #}
+            <h3>Genres</h3>
 
-    <input type="checkbox" id="romantic comedy" name="genres" value="Romantic Comedy">
-    <label for="romantic comedy">Romantic Comedy</label><br>
+            {# Tells the user that they can choose more than one genre #}
+            <p class="form-help">
+                Select all genres that apply.
+            </p>
 
-    <input type="checkbox" id="sci-fi" name="genres" value="Sci-Fi">
-    <label for="sci-fi">Sci-Fi</label><br>
+            {# This container holds all of the genre checkboxes #}
+            <div class="genre-checkboxes">
 
-    <input type="checkbox" id="sports" name="genres" value="Sports">
-    <label for="sports">Sports</label><br>
+                {# Checkbox for the Action genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Action">
+                    <span>Action</span>
+                </label>
 
-    <input type="checkbox" id="thriller" name="genres" value="Thriller">
-    <label for="thriller">Thriller</label><br>
+                {# Checkbox for the Adventure genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Adventure">
+                    <span>Adventure</span>
+                </label>
 
-    <br>
+                {# Checkbox for the Animation genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Animation">
+                    <span>Animation</span>
+                </label>
 
-    <button type="submit">
-        Add Media
-    </button>
+                {# Checkbox for the Anime genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Anime">
+                    <span>Anime</span>
+                </label>
 
-</form>
+                {# Checkbox for the Cartoon genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Cartoon">
+                    <span>Cartoon</span>
+                </label>
 
+                {# Checkbox for the Comedy genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Comedy">
+                    <span>Comedy</span>
+                </label>
+
+                {# Checkbox for the Crime genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Crime">
+                    <span>Crime</span>
+                </label>
+
+                {# Checkbox for the Documentary genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Documentary">
+                    <span>Documentary</span>
+                </label>
+
+                {# Checkbox for the Drama genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Drama">
+                    <span>Drama</span>
+                </label>
+
+                {# Checkbox for the Fantasy genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Fantasy">
+                    <span>Fantasy</span>
+                </label>
+
+                {# Checkbox for the Horror genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Horror">
+                    <span>Horror</span>
+                </label>
+
+                {# Checkbox for the Music/Musical genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Music/Musical">
+                    <span>Music/Musical</span>
+                </label>
+
+                {# Checkbox for the Mystery genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Mystery">
+                    <span>Mystery</span>
+                </label>
+
+                {# Checkbox for the Romance genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Romance">
+                    <span>Romance</span>
+                </label>
+
+                {# Checkbox for the Romantic Comedy genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Romantic Comedy">
+                    <span>Romantic Comedy</span>
+                </label>
+
+                {# Checkbox for the Sci-Fi genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Sci-Fi">
+                    <span>Sci-Fi</span>
+                </label>
+
+                {# Checkbox for the Sports genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Sports">
+                    <span>Sports</span>
+                </label>
+
+                {# Checkbox for the Thriller genre #}
+                <label class="genre-checkbox">
+                    <input type="checkbox" name="genres" value="Thriller">
+                    <span>Thriller</span>
+                </label>
+
+            </div>
+
+        </div>
+
+        {# This section contains the buttons at the bottom of the form #}
+        <div class="form-actions">
+
+            {# Submits the form and adds the new media item to the database #}
+            <button type="submit" class="button">
+                Add Media
+            </button>
+
+            {# Lets the user leave the form without adding anything #}
+            <a href="{{ url_for('media_list') }}" class="cancel-button">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{# Ends the main content block #}
 {% endblock %}

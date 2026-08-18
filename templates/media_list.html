@@ -1,51 +1,182 @@
+{# Makes this page use the shared layout and navigation from base.html #}
 {% extends "base.html" %}
 
+{# Sets the title that appears in the browser tab #}
 {% block title %}
-All Media
+My Media
 {% endblock %}
 
+{# Starts the main content for the My Media page #}
 {% block content %}
 
-<h1>My Media</h1>
+{# Contains the heading and the number of media items in the collection #}
+<div class="page-header">
 
+    <div>
+
+        {# Main heading for the page #}
+        <h1>My Media</h1>
+
+        {# Displays the number of media items currently in the database #}
+        {# The if statement adds an "s" when there is more than one item #}
+        <p>
+            {{ media|length }} media item{% if media|length != 1 %}s{% endif %}
+        </p>
+
+    </div>
+
+</div>
+
+{# This section contains the options for sorting the media collection #}
+<div class="sort-container">
+
+    {# Label for the sorting dropdown menu #}
+    <label for="sort">Sort by:</label>
+
+    {# Dropdown lets the user choose how the media should be sorted #}
+    <select
+        id="sort"
+
+        {# When the user selects an option, go to the media route with the selected sort option #}
+        onchange="window.location.href='/media?sort=' + this.value"
+    >
+
+        {# Sort the media alphabetically from A to Z #}
+        <option
+            value="title_asc"
+            {% if sort == "title_asc" %}selected{% endif %}
+        >
+            Title A-Z
+        </option>
+
+        {# Sort the media alphabetically from Z to A #}
+        <option
+            value="title_desc"
+            {% if sort == "title_desc" %}selected{% endif %}
+        >
+            Title Z-A
+        </option>
+
+        {# Sort the media from the highest rating to the lowest rating #}
+        <option
+            value="rating_desc"
+            {% if sort == "rating_desc" %}selected{% endif %}
+        >
+            Rating: Highest
+        </option>
+
+        {# Sort the media from the lowest rating to the highest rating #}
+        <option
+            value="rating_asc"
+            {% if sort == "rating_asc" %}selected{% endif %}
+        >
+            Rating: Lowest
+        </option>
+
+    </select>
+
+</div>
+
+{# Checks if there are any media items to display #}
 {% if media %}
 
-<table>
+    {# Creates the grid that holds all of the media cards #}
+    <div class="media-grid">
 
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Rating</th>
-            <th>Genres</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
+        {# Loops through each media item returned from the database #}
         {% for item in media %}
 
-        <tr>
-            <td>
-                <a href="{{ url_for('media_detail', media_id=item['id']) }}">
-                    {{ item["title"] }}
-                </a>
-            </td>
-            <td>{{ item["type"] }}</td>
-            <td>{{ item["rating"] }}</td>
-            <td>{{ item["genres"] or "No genres" }}</td>
-        </tr>
+            {# Makes the entire card clickable and links it to that media item's detail page #}
+            <a
+                href="{{ url_for('media_detail', media_id=item['id']) }}"
+                class="media-card"
+            >
 
+                {# Contains the title and type of the media item #}
+                <div class="media-card-header">
+
+                    {# Displays the movie or TV show's title #}
+                    <h2>
+                        {{ item["title"] }}
+                    </h2>
+
+                    {# Displays whether the item is a movie or TV show #}
+                    <span class="media-type">
+                        {{ item["type"] }}
+                    </span>
+
+                </div>
+
+                {# This section displays the rating for the media item #}
+                <div class="media-rating">
+
+                    {# Displays a star next to the rating #}
+                    <span class="rating-star">★</span>
+
+                    {# Displays the rating out of 10 #}
+                    <span>
+                        {{ item["rating"] }}/10
+                    </span>
+
+                </div>
+
+                {# This section contains all of the genres for the media item #}
+                <div class="media-genres">
+
+                    {# Checks if this media item has any genres #}
+                    {% if item["genres"] %}
+
+                        {# Splits the genres into individual values and loops through them #}
+                        {% for genre in item["genres"].split(", ") %}
+
+                            {# Displays each genre as its own bubble #}
+                            <span class="genre-tag">
+                                {{ genre }}
+                            </span>
+
+                        {% endfor %}
+
+                    {# If the media item has no genres then display a message instead #}
+                    {% else %}
+
+                        <span class="no-genres">
+                            No genres
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </a>
+
+        {# Ends the loop through the media items #}
         {% endfor %}
 
-    </tbody>
+    </div>
 
-</table>
-
+{# If there are no media items then show an empty state message instead #}
 {% else %}
 
-<p>You haven't added any movies or TV shows yet.</p>
+    {# This card lets the user know that their collection is currently empty #}
+    <div class="empty-state">
 
+        {# Heading for the empty state #}
+        <h2>No Media Yet</h2>
+
+        {# Explains why there are no media cards being displayed #}
+        <p>
+            You haven't added any movies or TV shows yet.
+        </p>
+
+        {# Gives the user a button to add their first media item #}
+        <a href="/add" class="button">
+            Add Media
+        </a>
+
+    </div>
+
+{# Ends the check for whether media exists #}
 {% endif %}
 
+{# Ends the main content block #}
 {% endblock %}

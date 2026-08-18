@@ -1,95 +1,217 @@
+{# Makes this page use the shared layout and navigation from base.html #}
 {% extends "base.html" %}
 
+{# Sets the title that appears in the browser tab #}
 {% block title %}
 Search Results
 {% endblock %}
 
+{# Starts the main content for the Edit Media page #}
 {% block content %}
 
-<h1>Search Results</h1>
+{# Creates the header section for the search results page #}
+<div class="results-header">
 
-<p>
-    <strong>Title:</strong>
-    {% if title %}
-        {{ title }}
-    {% else %}
-        Any
-    {% endif %}
-</p>
+    {# Creates the section containing the page heading and description #}
+    <div>
 
-<p>
-    <strong>Genre:</strong>
-    {% if genre %}
-        {{ genre }}
-    {% else %}
-        Any
-    {% endif %}
-</p>
+        {# Displays the page heading #}
+        <h1>Search Results</h1>
 
-<p>
-    <strong>Type:</strong>
-    {% if media_type %}
-        {{ media_type }}
-    {% else %}
-        Any
-    {% endif %}
-</p>
+        {# Gives the user a short description of the results #}
+        <p>
+            Your search results are shown below.
+        </p>
 
-<br>
+    </div>
 
+    {# Creates a button that takes the user back to the search page #}
+    <a
+        href="{{ url_for('search') }}"
+        class="button"
+    >
+        Search Again
+    </a>
+
+</div>
+
+{# Creates the section that shows the filters used for the search #}
+<div class="search-summary">
+
+    {# Creates the filter card for the title search #}
+    <div class="search-filter">
+
+        {# Displays the name of the filter #}
+        <strong>Title</strong>
+
+        {# Displays the title that was searched for or "Any" if no title was entered #}
+        <span>
+            {% if title %}
+                {{ title }}
+            {% else %}
+                Any
+            {% endif %}
+        </span>
+
+    </div>
+
+    {# Creates the filter card for the genre search #}
+    <div class="search-filter">
+
+        {# Displays the name of the filter #}
+        <strong>Genre</strong>
+
+        {# Displays the genre that was selected or "Any" if no genre was selected #}
+        <span>
+            {% if genre %}
+                {{ genre }}
+            {% else %}
+                Any
+            {% endif %}
+        </span>
+
+    </div>
+
+    {# Creates the filter card for the media type search #}
+    <div class="search-filter">
+
+        {# Displays the name of the filter #}
+        <strong>Type</strong>
+
+        {# Displays the type that was selected or "Any" if no type was selected #}
+        <span>
+            {% if media_type %}
+                {{ media_type }}
+            {% else %}
+                Any
+            {% endif %}
+        </span>
+
+    </div>
+
+</div>
+
+{# Checks whether any media matched the search #}
 {% if media %}
 
-    <table>
+    {# Displays the number of results found #}
+    <div class="results-count">
 
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Rating</th>
-                <th>Genres</th>
-            </tr>
-        </thead>
+        {{ media|length }}
 
-        <tbody>
+        {# This uses "result" when there is only one result #}
+        {% if media|length == 1 %}
+            result
+        {% else %}
+            results
+        {% endif %}
 
-            {% for item in media %}
+    </div>
 
-                <tr>
+    {# Creates the grid that holds all of the matching media cards #}
+    <div class="media-grid">
 
-                    <td>
-                        <a href="{{ url_for('media_detail', media_id=item['id']) }}">
-                            {{ item["title"] }}
-                        </a>
-                    </td>
+        {# Loops through each media item returned by the search #}
+        {% for item in media %}
 
-                    <td>
+            {# Makes the entire media card clickable and links to its detail page #}
+            <a
+                href="{{ url_for('media_detail', media_id=item['id']) }}"
+                class="media-card"
+            >
+
+                {# Creates the top section of the media card #}
+                <div class="media-card-header">
+
+                    {# Displays the title of the media item #}
+                    <h2>
+                        {{ item["title"] }}
+                    </h2>
+
+                    {# Displays whether the item is a movie or TV show #}
+                    <span class="media-type">
                         {{ item["type"] }}
-                    </td>
+                    </span>
 
-                    <td>
+                </div>
+
+                {# Creates the section that displays the rating #}
+                <div class="media-rating">
+
+                    {# Displays the star next to the rating #}
+                    <span class="rating-star">★</span>
+
+                    {# Displays the media item's rating out of 10 #}
+                    <span>
                         {{ item["rating"] }}/10
-                    </td>
+                    </span>
 
-                    <td>
-                        {{ item["genres"] or "No genres" }}
-                    </td>
+                </div>
 
-                </tr>
+                {# Creates the section that displays the genres #}
+                <div class="media-genres">
 
-            {% endfor %}
+                    {# Checks whether the media item has any genres #}
+                    {% if item["genres"] %}
 
-        </tbody>
+                        {# Loops through each genre for the media item #}
+                        {% for genre in item["genres"].split(", ") %}
 
-    </table>
+                            {# Creates a bubble for each genre #}
+                            <span class="genre-tag">
+                                {{ genre }}
+                            </span>
 
+                        {# Ends the genre loop #}
+                        {% endfor %}
+
+                    {# If the media item does not have any genres #}
+                    {% else %}
+
+                        {# Displays a message when no genres are available #}
+                        <span class="no-genres">
+                            No genres
+                        </span>
+
+                    {# Ends the genre check #}
+                    {% endif %}
+
+                </div>
+            
+            {# Ends the clickable media card #}
+            </a>
+
+        {# Ends the loop through the search results #}
+        {% endfor %}
+
+    </div>
+
+{# If no media matched the search #}
 {% else %}
 
-    <p>No media found matching your search.</p>
+    {# Creates the message shown when there are no search results #}
+    <div class="no-results">
 
+        {# Displays the no results heading #}
+        <h2>No Results Found</h2>
+
+        {# Tells the user that no media matched the search #}
+        <p>
+            No movies or TV shows matched your search.
+        </p>
+
+        {# Creates a button that takes the user back to the search page #}
+        <a
+            href="{{ url_for('search') }}"
+            class="button"
+        >
+            Try Another Search
+        </a>
+
+    </div>
+
+{# Ends the check for search results #}
 {% endif %}
 
-<br>
-
-<a href="{{ url_for('search') }}">Search Again</a>
-
+{# Ends the main content section #}
 {% endblock %}

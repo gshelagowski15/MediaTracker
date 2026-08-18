@@ -1,44 +1,128 @@
+{# Makes this page use the shared layout and navigation from base.html #}
 {% extends "base.html" %}
 
+{# Uses the title of the selected movie or TV show as the browser tab title #}
 {% block title %}
 {{ media["title"] }}
 {% endblock %}
 
+{# Starts the main content for the media detail page #}
 {% block content %}
 
-<h1>{{ media["title"] }}</h1>
+{# This card contains all of the information about the selected media item #}
+<div class="detail-card">
 
-<p>
-    <strong>Type:</strong>
-    {{ media["type"] }}
-</p>
+    {# This section contains the title, type, and rating of the media item #}
+    <div class="detail-header">
 
-<p>
-    <strong>Rating:</strong>
-    {{ media["rating"] }}/10
-</p>
+        {# This div groups the title and media type together #}
+        <div>
 
-<p>
-    <strong>Genres:</strong>
-    {{ media["genres"] or "No genres" }}
-</p>
+            {# Displays the title of the movie or TV show #}
+            <h1>{{ media["title"] }}</h1>
 
-<br>
+            {# Displays whether the media is a movie or TV show #}
+            <p class="detail-type">
+                {{ media["type"] }}
+            </p>
 
-<a href="{{ url_for('edit_media', media_id=media['id']) }}">
-    <button type="button">Edit</button>
+        </div>
+
+        {# This section displays the rating for the media item #}
+        <div class="detail-rating">
+
+            {# Displays a star next to the rating #}
+            <span class="rating-star">★</span>
+
+            {# Displays the rating stored in the database #}
+            <span class="rating-number">
+                {{ media["rating"] }}
+            </span>
+
+            {# Displays that the rating is out of 10 #}
+            <span class="rating-out-of">
+                / 10
+            </span>
+
+        </div>
+
+    </div>
+
+    {# This section displays the genres associated with the media item #}
+    <div class="detail-section">
+
+        {# Heading for the genres section #}
+        <h3>Genres</h3>
+
+        {# Checks if the media item has any genres #}
+        {% if media["genres"] %}
+
+            {# This container holds all of the genre bubbles #}
+            <div class="genre-list">
+
+                {# Splits the genres into individual values and loops through them #}
+                {% for genre in media["genres"].split(", ") %}
+
+                    {# Displays each genre in its own bubble #}
+                    <span class="genre-tag">
+                        {{ genre }}
+                    </span>
+
+                {# Ends the genre loop #}
+                {% endfor %}
+
+            </div>
+
+        {# If there are no genres then display a message instead #}
+        {% else %}
+
+            <p>No genres</p>
+
+        {% endif %}
+
+    </div>
+
+    {# This section contains the buttons for editing and deleting the media item #}
+    <div class="detail-actions">
+
+        {# Link to the edit page for this specific media item #}
+        <a
+            href="{{ url_for('edit_media', media_id=media['id']) }}"
+            class="button"
+        >
+            Edit Media
+        </a>
+
+        {# This form sends a POST request to the delete route when submitted #}
+        <form
+            action="{{ url_for('delete_media', media_id=media['id']) }}"
+            method="POST"
+
+            {# Calls the JavaScript confirmation function before deleting the media #}
+            onsubmit="return confirmDelete();"
+        >
+
+            {# Button that submits the delete form #}
+            <button
+                type="submit"
+                class="delete-button"
+            >
+                Delete Media
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{# Link back to the page showing the user's entire media collection #}
+<a
+    href="{{ url_for('media_list') }}"
+    class="back-link"
+>
+    ← Back to My Media
 </a>
 
-<form
-    action="{{ url_for('delete_media', media_id=media['id']) }}"
-    method="POST"
-    style="display: inline;"
->
-    <button type="submit">Delete</button>
-</form>
-
-<br><br>
-
-<a href="{{ url_for('media_list') }}">Back to My Media</a>
-
+{# End the main content block #}
 {% endblock %}
